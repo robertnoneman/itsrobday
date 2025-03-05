@@ -5,7 +5,7 @@ import { fetchAuthSession } from "aws-amplify/auth/server";
 import { runWithAmplifyServerContext } from "@/utils/amplify-utils";
 
 export async function middleware(request: NextRequest) {
-    return;
+    // return;
     const response = NextResponse.next();
 
     const authenticated = await runWithAmplifyServerContext({

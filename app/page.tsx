@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { AuthGetCurrentUserServer, cookiesClient } from "@/utils/amplify-utils";
 import { revalidatePath } from "next/cache";
+import Logout from "@/app/components/Logout";
 
 
 export default async function Home() {
   const { data: todos } = await cookiesClient.models.Todo.list();
 
-  const currentUser = await AuthGetCurrentUserServer();
+  const user = await AuthGetCurrentUserServer();
 
   async function addTodo(data: FormData) {
     "use server";
@@ -30,6 +31,7 @@ export default async function Home() {
           height={38}
           priority
         />
+        {user && <Logout />}
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Get started by editing{" "}
