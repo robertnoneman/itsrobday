@@ -23,7 +23,9 @@ export async function AuthGetCurrentUserServer() {
       nextServerContext: { cookies },
       operation: (contextSpec) => getCurrentUser(contextSpec),
     });
-    return currentUser;
+    return (
+        <p>{`Hello, ${currentUser.username}`}</p>
+    );
   } catch (error) {
     console.error(error);
   }

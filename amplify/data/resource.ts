@@ -13,7 +13,7 @@ const schema = a.schema({
       done: a.boolean(),
       priority: a.enum(['low', 'medium', 'high'])
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization(allow => [allow.owner(), allow.publicApiKey().to(['read'])])
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -21,7 +21,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: 'userPool',
   },
 });
 

@@ -5,9 +5,9 @@ import Logout from "@/app/components/Logout";
 
 
 export default async function Home() {
+  const user = await AuthGetCurrentUserServer();
   const { data: todos } = await cookiesClient.models.Todo.list();
 
-  const user = await AuthGetCurrentUserServer();
 
   async function addTodo(data: FormData) {
     "use server";
@@ -17,6 +17,7 @@ export default async function Home() {
       done: false,
       priority: "medium",
     });
+    console.log("Todos", todos);
     revalidatePath("/");
   }
 
