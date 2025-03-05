@@ -1,6 +1,24 @@
 import Image from "next/image";
+import { AuthGetCurrentUserServer, cookiesClient } from "@/utils/amplify-utils";
+import { revalidatePath } from "next/cache";
 
-export default function Home() {
+
+export default async function Home() {
+  const { data: todos } = await cookiesClient.models.Todo.list();
+
+  // const currentUser = await AuthGetCurrentUserServer();
+
+  async function addTodo(data: FormData) {
+    "use server";
+    const title = data.get("title") as string;
+    await cookiesClient.models.Todo.create({
+      content: title,
+      done: false,
+      priority: "medium",
+    });
+    revalidatePath("/");
+  }
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -23,6 +41,13 @@ export default function Home() {
           <li>Save and see your changes instantly.</li>
           <li> OH really? </li>
         </ol>
+        <form action={addTodo}>
+          <input type="text" name="title" />
+          <button type="submit">Add Todo</button>
+        </form>
+        <ul>
+          {todos && todos.map((todo) => <li key={todo.id}>{todo.content}</li>)}
+        </ul>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
