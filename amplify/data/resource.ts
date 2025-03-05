@@ -13,7 +13,7 @@ const schema = a.schema({
       done: a.boolean(),
       priority: a.enum(['low', 'medium', 'high'])
     })
-    .authorization(allow => [allow.owner(), allow.publicApiKey().to(['read'])])
+    .authorization((allow) => [allow.guest()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
