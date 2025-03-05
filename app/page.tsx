@@ -12,12 +12,12 @@ export default async function Home() {
   async function addTodo(data: FormData) {
     "use server";
     const title = data.get("title") as string;
-    await cookiesClient.models.Todo.create({
+    const result = await cookiesClient.models.Todo.create({
       content: title,
       done: false,
       priority: "medium",
     });
-    console.log("Todos", todos);
+    console.log("New Todo created:", result);
     revalidatePath("/");
   }
 
