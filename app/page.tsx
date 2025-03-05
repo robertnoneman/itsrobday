@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 export default async function Home() {
   const { data: todos } = await cookiesClient.models.Todo.list();
 
-  // const currentUser = await AuthGetCurrentUserServer();
+  const currentUser = await AuthGetCurrentUserServer();
 
   async function addTodo(data: FormData) {
     "use server";
