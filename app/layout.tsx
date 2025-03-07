@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <ConfigureAmplifyClientSide />
         {/* <div className="relative pt-14 bg-linear-to-t from-slate-800 to-red-950 grid min-h-screen grid-cols-[1rem_1rem_auto_1rem_1rem] md:grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr]  [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"> */}
-        <div className="relative bg-linear-to-t from-sky-800 to-rose-950 grid min-h-screen grid-cols-[0.5rem_auto_0.5rem] md:grid-cols-[2.5rem_2.5rem_auto_2.5rem_2.5rem] grid-rows-[1fr_1px_auto_1px_1fr]  [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
+        <div className="relative bg-linear-to-t to-sky-800 from-rose-950 grid min-h-screen grid-cols-[0.5rem_auto_0.5rem] md:grid-cols-[2.5rem_2.5rem_auto_2.5rem_2.5rem] grid-rows-[1fr_1px_auto_1px_1fr]  [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
         {/* <div className="relative grid min-h-screen grid-cols-[1rem_1rem_auto_1rem_1rem] md:grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr]  [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"> */}
         {/* <div className="relative pt-14 bg-linear-to-t from-slate-800 to-red-950 min-h-screen "> */}
             <NavBar />

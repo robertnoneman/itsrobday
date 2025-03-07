@@ -14,6 +14,126 @@ const schema = a.schema({
       priority: a.enum(['low', 'medium', 'high'])
     })
     .authorization((allow) => [allow.guest(), allow.publicApiKey()]),
+    RobdaylogActivity: a
+    .model({
+      robdaylogId: a.id().required(),
+      activityId: a.id().required(),
+
+      robdaylog: a.belongsTo("Robdaylog", "robdaylogId"),
+      activity: a.belongsTo("Activity", "activityId"),
+    }).authorization((allow) => [allow.publicApiKey()]),
+  RobdaylogLocation: a
+    .model({
+      robdaylogId: a.id().required(),
+      locationId: a.id().required(),
+
+      robdaylog: a.belongsTo("Robdaylog", "robdaylogId"),
+      location: a.belongsTo("Location", "locationId"),
+    }).authorization((allow) => [allow.publicApiKey()]),
+    ActivityLocation: a
+      .model({
+        activityId: a.id().required(),
+        locationId: a.id().required(),
+        location: a.belongsTo("Location", "locationId"),
+        activity: a.belongsTo("Activity", "activityId"),
+      }).authorization((allow) => [allow.publicApiKey()]),
+
+  Robdaylog: a
+    .model({
+      date: a.date().required(),
+      status: a.enum(["Upcoming", "Started", "Completed"]),
+      robDayNumber: a.integer(),
+      notes: a.string().array(),
+      weatherCondition: a.string(),
+      temperature: a.float(),
+      rating: a.integer(),
+      cost: a.float(),
+      duration: a.time(),
+      startTime: a.timestamp(),
+      endTime: a.timestamp(),
+      totalTime: a.float(),
+      locations: a.hasMany("RobdaylogLocation", "robdaylogId"),
+      activities: a.hasMany("RobdaylogActivity", "robdaylogId"),
+      activityInstances: a.hasMany("ActivityInstance", "robdaylogId")
+    }).authorization((allow) => [allow.publicApiKey()]),
+
+  Activity: a
+    .model({
+      name: a.string(),
+      description: a.string(),
+      count: a.integer(),
+      rating: a.float(),
+      notes: a.string().array(),
+      image: a.string(),
+      lever_of_effort: a.integer(),
+      categories: a.string().array(),
+      cost: a.integer(),
+      costMax: a.integer(),
+      location: a.string(),
+      isOnNextRobDay: a.boolean(),
+      duration: a.float(),
+      locations: a.hasMany("ActivityLocation", "activityId"),
+      robdaylogs: a.hasMany("RobdaylogActivity", "activityId"),
+      activityInstances: a.hasMany("ActivityInstance", "activityId")
+    }).authorization((allow) => [allow.publicApiKey()]),
+  ActivityInstance: a
+    .model({
+      date: a.date().required(),
+      status: a.enum(["Planned", "InProgress", "Paused", "Completed"]),
+      displayName: a.string(),
+      startTime: a.timestamp(),
+      endTime: a.timestamp(),
+      totalTime: a.float(),
+      notes: a.string().array(),
+      weatherCondition: a.string(),
+      temperature: a.float(),
+      rating: a.integer(),
+      loe: a.integer(),
+      cost: a.float(),
+      images: a.string().array(),
+      activityId: a.id().required(),
+      locationId: a.id(),
+      robdaylogId: a.id(),
+      activity: a.belongsTo("Activity", "activityId"),
+      location: a.belongsTo("Location", "locationId"),
+      robdayLog: a.belongsTo("Robdaylog", "robdaylogId"),
+      completed: a.boolean(),
+      isOnNextRobDay: a.boolean(),
+    }).authorization((allow) => [allow.publicApiKey()]),
+  Location: a
+    .model({
+      name: a.string(),
+      description: a.string(),
+      address: a.string(),
+      latitude: a.float(),
+      longitude: a.float(),
+      activities: a.hasMany("ActivityLocation", "locationId"),
+      robdaylogs: a.hasMany("RobdaylogLocation", "locationId"),
+      activityInstances: a.hasMany("ActivityInstance", "locationId")
+    }).authorization((allow) => [allow.publicApiKey()]),
+  DartGame: a
+    .model({
+      startTime: a.timestamp(),
+      endTime: a.timestamp(),
+      status: a.enum(["InProgress", "Completed"]),
+      gameType: a.enum(["Cricket", "ThreeOhOne", "FiveOhOne", "SevenOhOne", "Baseball", "RobdayNightFootball"]),
+      player1Name: a.string(),
+      player2Name: a.string(),
+      x01RoundScoresPlayer1: a.integer().array(),
+      x01RoundScoresPlayer2: a.integer().array(),
+      baseballInningScoresPlayer1: a.integer().array(),
+      baseballInningScoresPlayer2: a.integer().array(),
+      baseballInningErrorsPlayer1: a.integer().array(),
+      baseballInningErrorsPlayer2: a.integer().array(),
+      cricketTotalPointsPlayer1: a.integer().array(),
+      cricketTotalPointsPlayer2: a.integer().array(),
+      cricketMarksPlayer1: a.integer().array(),
+      cricketMarksPlayer2: a.integer().array(),
+      robdayNightFootballScoresPlayer1: a.integer().array(),
+      robdayNightFootballScoresPlayer2: a.integer().array(),
+      winnerName: a.string(),
+      loserName: a.string(),
+    }).authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

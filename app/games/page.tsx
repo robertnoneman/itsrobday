@@ -1,3 +1,4 @@
+import DartScoreboard from "../components/DartScoreboard";
 
 
 export default async function Page() {
@@ -6,6 +7,7 @@ export default async function Page() {
         <h1 className="text-2xl font-bold">GAMES</h1>
         <p>Welcome to your games page.</p>
         
+        <DartScoreboard />
         </div>
     );
 }

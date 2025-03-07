@@ -15,7 +15,7 @@ export function RobdayLogCard(
   { robdayNumber = "Robday 1", date = "March 3, 2025", activities = [] }: { robdayNumber?: string, date?: string, activities?: string[] },
 ) {
   return (
-    <Card className="md:w-[350px]">
+    <Card className="">
       <CardHeader>
         <CardTitle>{robdayNumber}</CardTitle>
         <CardDescription>{date}</CardDescription>
