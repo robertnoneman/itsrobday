@@ -1,7 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 // import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { HiBars3 } from "react-icons/hi2";
-import { HiBell } from "react-icons/hi";
 import { HiXMark } from "react-icons/hi2";
 import { NavBarItem } from './NavBarItem';
 
@@ -14,9 +13,6 @@ const navigation = [
 	{ name: "Games", href: "/games", current: false },
 ]
 
-function classNames(...classes: string[]) {
-	return classes.filter(Boolean).join(' ')
-}
 
 export default function NavBar() {
 	
