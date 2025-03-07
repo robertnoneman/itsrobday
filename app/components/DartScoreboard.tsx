@@ -11,9 +11,9 @@ import { Separator } from "@/components/ui/separator"
 import { Homemade_Apple, Splash, Cabin_Sketch } from "next/font/google";
 
 
-const appleFont = Homemade_Apple({ weight: "400" });
-const splashFont = Splash({ weight: "400" });
-const cabinFont = Cabin_Sketch({ weight: ["400", "700"] });
+const appleFont = Homemade_Apple({ weight: "400", subsets: ["latin"], });
+const splashFont = Splash({ weight: "400", subsets: ["latin"], });
+const cabinFont = Cabin_Sketch({ weight: ["400", "700"], subsets: ["latin"], });
 
 
 export default function DartScoreboard() {
