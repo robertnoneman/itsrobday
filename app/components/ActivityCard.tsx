@@ -1,9 +1,7 @@
 
 import {
   Card,
-  
   CardDescription,
-  
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -15,26 +13,39 @@ import {
 } from "@/components/ui/popover"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Separator } from "@/components/ui/separator"
-
-
+import Image from "next/image";
 
 
 export function ActivityCard(
-  { title = "Baseball", description = "Deploy a baseball and deposit it in a glove. Repeat." }: { title?: string, description?: string },
+  { title = "Baseball", 
+    description = "Deploy a baseball and deposit it in a glove. Repeat.",
+    count,
+    rating,
+    cost,
+    duration,
+    lastCompleted,
+    image
+  }: 
+    { title?: string, 
+      description?: string,
+      count?: number,
+      rating?: number,
+      cost?: number,
+      duration?: number,
+      lastCompleted?: string,
+      image?: string
+    },
 ) {
+
+  const getImageUrl = (key: string) => {
+    const url = `https://amplify-d2e7zdl8lpqran-ma-robdayimagesbuckete97c22-bwldlxhxdd4t.s3.us-east-1.amazonaws.com/${key}`;
+    return url;
+  }
+
+  
   return (
-    <Card className="md:w-[350px]">
-      <Popover>
-        {/* <HoverCard>
-        <HoverCardTrigger>
-        <HoverCardContent>
-        <div className="grid w-full items-center gap-4">
-          {title}
-          {description}
-        </div>
-        </HoverCardContent>
-      </HoverCardTrigger>
-      </HoverCard> */}
+    <Card className="w-full md:w-[350px] overflow-auto">
+      <Popover >
         <PopoverTrigger>
           <CardHeader>
             <CardTitle className="text-left">{title}</CardTitle>
@@ -45,15 +56,21 @@ export function ActivityCard(
           <div className="grid w-full gap-4">
             <CardTitle>{title}</CardTitle>
             <div className="flex flex-col space-y-3">
-              <Skeleton className="w-[200px] h-[70px] rounded-b-sm" />
+              {image ? <Image
+                src={getImageUrl(image)}
+                alt={title}
+                width={300}
+                height={200}
+                /> : <Skeleton className="w-[200px] h-[70px] rounded-b-sm" />}
             </div>
             <CardDescription >{description}</CardDescription>
             <Separator />
-            <CardDescription >Times Completed: 5</CardDescription>
-            <CardDescription >Average Rating: 8</CardDescription>
-            <CardDescription> Average Cost: $10</CardDescription>
-            <CardDescription> Average Duration: 2 hours</CardDescription>
-            <CardDescription> Last completed: 3/3/25 - Robday #34</CardDescription>
+            <CardDescription >Times Completed: {count}</CardDescription>
+            <CardDescription >Average Rating: {rating}</CardDescription>
+            <CardDescription> Average Cost: ${cost}</CardDescription>
+            <CardDescription> Average Duration: {duration} hours</CardDescription>
+            <CardDescription> Last completed: {lastCompleted}</CardDescription>
+            <CardDescription>{image}</CardDescription>
           </div>
         </PopoverContent>
       </Popover>
