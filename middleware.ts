@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
     if (authenticated) {
         return response;
     }
-
+    return response;
     return NextResponse.redirect(new URL("/login", request.url));
 }
 

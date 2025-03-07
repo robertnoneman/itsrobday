@@ -12,7 +12,7 @@ export default function Logout() {
         await signOut();
         router.push("/login");
       }}
-      className="px-2 bg-white text-black"
+      className="px-2 bg-white text-black rounded-xl shadow-md hover:bg-gray-200 transition"
     >
       Sign out
     </button>
