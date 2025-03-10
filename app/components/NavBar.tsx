@@ -3,6 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { HiBars3 } from "react-icons/hi2";
 import { HiXMark } from "react-icons/hi2";
 import { NavBarItem } from './NavBarItem';
+import Image from 'next/image';
 
 const navigation = [
 	{ name: 'Home', href: '/', current: true },
@@ -33,10 +34,12 @@ export default function NavBar() {
 					</div>
 					<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 						<div className="flex shrink-0 items-center bg-stone-950/50 rounded-full p-1">
-							<img
+							<Image
 								alt="ItsRobDay"
 								src="/RobdayIcon.png"
 								className="h-8 w-auto right-[1px]"
+								width={32}
+								height={32}
 							/>
 						</div>
 						<div className="hidden sm:ml-6 sm:block ">
@@ -61,10 +64,12 @@ export default function NavBar() {
 								<MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
 									<span className="absolute -inset-1.5" />
 									<span className="sr-only">Open user menu</span>
-									<img
+									<Image
 										alt=""
 										src="/robN_avatar.png"
 										className="size-8 rounded-full"
+										width={32}
+										height={32}
 									/>
 								</MenuButton>
 							</div>

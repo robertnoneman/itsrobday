@@ -38,6 +38,9 @@ export function ActivityCard(
 ) {
 
   const getImageUrl = (key: string) => {
+    if (key.startsWith("https://")) {
+      return key;
+    }
     const url = `https://amplify-d2e7zdl8lpqran-ma-robdayimagesbuckete97c22-bwldlxhxdd4t.s3.us-east-1.amazonaws.com/${key}`;
     return url;
   }

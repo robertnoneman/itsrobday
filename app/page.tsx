@@ -27,7 +27,7 @@ export default async function Home() {
     <div
     // className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-2 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-white [--pattern-fg:var(--color-gray-950)]/15 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"
     >
-      <main className="flex flex-col gap-8 row-start-2 items-center justify-items-center justify-center">
+      <main className="overflow-y-scroll flex flex-col gap-8 row-start-2 items-center justify-items-center justify-center">
         <Image
           className="dark:invert hover:animate-spin"
           src="/next.svg"

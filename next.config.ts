@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'amplify-d1m5vuivkact3e-ma-robdayimagesbuckete97c22-lauafm4bkwjg.s3.us-east-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'static-00.iconduck.com',
         port: '',
         pathname: '/**',

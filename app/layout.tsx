@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="[color-scheme:dark] dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-y-scroll bg-gray-950 bg-[url('/grid.svg')] antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable}  bg-gray-950 bg-[url('/grid.svg')] antialiased`}
       >
         <ConfigureAmplifyClientSide />
         {/* <div className="relative pt-14 bg-linear-to-t from-slate-800 to-red-950 grid min-h-screen grid-cols-[1rem_1rem_auto_1rem_1rem] md:grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr]  [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"> */}
