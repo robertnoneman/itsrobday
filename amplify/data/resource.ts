@@ -7,40 +7,13 @@ specifies that any unauthenticated user can "create", "read", "update",
 and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  // Todo: a
-  //   .model({
-  //     content: a.string(),
-  //     done: a.boolean(),
-  //     priority: a.enum(['low', 'medium', 'high'])
-  //   }).authorization((allow) => [allow.guest(), allow.publicApiKey()]),
-    Todo: a
-    .customType({
+  Todo: a
+    .model({
       content: a.string(),
-      isDone: a.boolean(),
-      status: a.enum(["Todo", "InProgress", "Completed"]),
-      notes: a.string().array(),
-    }),
-    getTodo: a
-    .query()
-    .arguments({ id: a.id().required() })
-    .returns(a.ref("Todo"))
-    .authorization((allow) => [allow.publicApiKey()])
-    .handler(
-      a.handler.custom({
-        dataSource: "TodoTable",
-        entry: "./getTodo.js",
-      })
-    ),
-    listTodo: a
-    .query()
-    .returns(a.ref("Todo").array())
-    .authorization((allow) => [allow.publicApiKey()])
-    .handler(
-      a.handler.custom({
-        dataSource: "TodoTable",
-        entry: "./listTodo.js",
-      })
-    ),
+      done: a.boolean(),
+      priority: a.enum(['low', 'medium', 'high'])
+    })
+    .authorization((allow) => [allow.guest(), allow.publicApiKey()]),
     RobdaylogActivity: a
     .model({
       robdaylogId: a.id().required(),
