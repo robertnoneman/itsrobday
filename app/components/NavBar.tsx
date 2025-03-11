@@ -107,7 +107,7 @@ export default function NavBar() {
 				</div>
 			</div>
 
-			<DisclosurePanel className="sm:hidden backdrop-blur">
+			<DisclosurePanel transition className="transform transition data-closed:-translate-y-full duration-350 ease-in-out sm:hidden backdrop-blur">
 				<div className="space-y-1 px-2 pt-2 pb-3 flex flex-col">
 					{navigation.map((item) => (
 						<NavBarItem

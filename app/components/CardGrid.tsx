@@ -430,7 +430,7 @@ export const CardGrid: React.FC<{ activities: DriftingCardProps[] }> = ({ activi
   }, []);
 
   return (
-    <div className="card-container z-100">
+    <div className="card-container">
       {cards.map((card, index) => (
         card.index = index,
         <DriftingCard key={index} {...card} registerTimeline={registerTimeline}/>
