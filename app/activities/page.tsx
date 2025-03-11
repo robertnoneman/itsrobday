@@ -1,13 +1,13 @@
-import { ActivityCard } from "@/app/components/ActivityCard";
+// import { ActivityCard } from "@/app/components/ActivityCard";
 import { 
     cookiesClient } from "@/utils/amplify-utils";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
-import AddActivityForm from "@/app/components/AddActivityForm";
+// import {
+//     Accordion,
+//     AccordionContent,
+//     AccordionItem,
+//     AccordionTrigger,
+// } from "@/components/ui/accordion"
+// import AddActivityForm from "@/app/components/AddActivityForm";
 import { CardGrid } from '@/app/components/CardGrid'
 
 
@@ -38,7 +38,7 @@ export default async function Page() {
     return (
         <div className=" overflow-hidden overscroll-none">
             <h1 className="text-2xl font-bold">ACTIVITIES</h1>
-            <div className="align-center items-center justify-center flex flex-col gap-2">
+            <div className="align-center h-full items-center justify-center flex flex-col gap-2">
                 <CardGrid activities={driftingCardProps}/>
                 {/* <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1">

@@ -3,9 +3,10 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { Draggable } from 'gsap/dist/Draggable';
 
 // Register the ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 
 interface CardProps {
   title: string;
@@ -146,6 +147,18 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
     //   // scale: 0.5,
     //   // duration: 10,
     //   ease: 'none',
+    let cardDragger = document.getElementById(`card-dragger-${title}`);
+    let id = `Card${title}`;
+    let cardDraggable = new Draggable(cardDragger, {
+      // trigger: ".card",
+      onDrag: function () {
+        tl.pause();
+      },
+      onDragEnd: function () {
+        tl
+          .play()
+      }
+    })
     //   // ease: "elastic"
     // })
     tl.to(el, {
@@ -168,13 +181,15 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
 
   return (
     <div ref={cardRef} className="card-grid">
-      <div className="card">
+      <a id={`card-dragger-${title}`} className="card-dragger">
+      <div id={`Card${title}`} className="card">
       <img src={getImageUrl(imageUrl)} alt={title} className="card-image" />
       <div className="card-content">
         <h3>{title}</h3>
         {/* <p>{description}</p> */}
       </div>
     </div>
+      </a>
       <style jsx>{`
         .card-grid {
           display: grid;
@@ -183,6 +198,7 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
           left: 50%;
           top: 50%;
           grid-template-columns: repeat(4, 1fr);
+          pointer-events: none;
           grid-template-rows: repeat(3, 1fr);
           position: absolute;
           gap: 20px;
@@ -193,9 +209,10 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
           border-radius: 10px;
           overflow: hidden;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          cursor: pointer;
+          pointer-events: auto;
           height: fit-content;
           width: fit-content;
+          position: relative;
           /* Ensure the transform origin is centered */
           transform-origin: center;
           grid-column-start: ${column_start};
@@ -205,6 +222,20 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
           justify-content: center;
           align-content: center;
         }
+        .card-dragger {
+          pointer-events: auto;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          cursor: grab;
+        }
+        .card-dragger:active {
+          cursor: grabbing;
+        }
+        .card-dragger:active .card {
+          cursor: grabbing;
+      }
         .card-image {
           width: 100%;
           display: block;
@@ -399,7 +430,7 @@ export const CardGrid: React.FC<{ activities: DriftingCardProps[] }> = ({ activi
   }, []);
 
   return (
-    <div className="card-container">
+    <div className="card-container z-100">
       {cards.map((card, index) => (
         card.index = index,
         <DriftingCard key={index} {...card} registerTimeline={registerTimeline}/>
@@ -412,11 +443,9 @@ export const CardGrid: React.FC<{ activities: DriftingCardProps[] }> = ({ activi
           position: fixed;
           max-width: 102.4rem;
           left: 50%;
+          pointer-event: none;
           top: 50%;
           transform: translate(-50%, -50%);
-          pointer-events: none;
-          // gap: 20px;
-          // padding: 20px;
           /* Set perspective for the 3D effect */
           transform-style: preserve-3d;
           perspective: 1000px;
