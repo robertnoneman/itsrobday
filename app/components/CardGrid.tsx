@@ -252,6 +252,7 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
 
 export const CardGrid: React.FC<{ activities: DriftingCardProps[] }> = ({ activities }) => {
   // Sample card data; replace with props data
+  console.log(activities);
   
   let cards = activities;
   if (activities.length === 0) {
