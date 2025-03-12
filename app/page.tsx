@@ -16,7 +16,7 @@ export default async function Home() {
     const title = data.get("title") as string;
     const result = await cookiesClient.models.Todo.create({
       content: title,
-      done: false,
+      status: "Todo",
       priority: "medium",
     });
     console.log("New Todo created:", result);
