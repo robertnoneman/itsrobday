@@ -30,7 +30,7 @@ export default async function Page() {
             description: activity.description ?? "",
             imageUrl: activity.image ?? "",
             column_start: 1 + (index % 4),
-            row_start: 1 + Math.floor(index / 4),
+            row_start: 1 + (index % 3),
             index: index
         })
     })

@@ -224,8 +224,10 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
         }
         .card-dragger {
           pointer-events: auto;
-          top: 0;
-          left: 0;
+          grid-column-start: ${column_start};
+          grid-row-start: ${row_start};
+          top: ${column_start};
+          left: ${row_start};
           width: 100%;
           height: 100%;
           cursor: grab;
