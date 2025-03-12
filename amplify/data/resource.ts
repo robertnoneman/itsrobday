@@ -10,8 +10,8 @@ const schema = a.schema({
   Todo: a
     .model({
       content: a.string(),
-      done: a.boolean(),
-      priority: a.enum(['low', 'medium', 'high'])
+      priority: a.enum(['low', 'medium', 'high']),
+      status: a.enum(['Todo', 'InProgress', 'Completed']),
     })
     .authorization((allow) => [allow.guest(), allow.publicApiKey()]),
     RobdaylogActivity: a

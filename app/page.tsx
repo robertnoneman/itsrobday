@@ -8,8 +8,8 @@ import "@/app/globals.css";
 
 export default async function Home() {
   const user = await AuthGetCurrentUserServer();
-  const { data: todos } = await cookiesClient.models.Todo.list();
-
+  // const { data: todos = [] } = await cookiesClient.models.Todo.list();
+  
 
   async function addTodo(data: FormData) {
     "use server";
@@ -27,7 +27,7 @@ export default async function Home() {
     <div
     // className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-2 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-white [--pattern-fg:var(--color-gray-950)]/15 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"
     >
-      <main className="overflow-y-scroll flex flex-col gap-8 row-start-2 items-center justify-items-center justify-center">
+      <main className="flex flex-col gap-8 row-start-2 items-center justify-items-center justify-center">
         <Image
           className="dark:invert hover:animate-spin"
           src="/next.svg"
@@ -49,7 +49,7 @@ export default async function Home() {
           <li>Save and see your changes instantly.</li>
           <li> OH really? </li>
         </ol>
-        <div className="flex-col gap-4 md:p-4 justify-center items-center w-full md:w-xl  bg-gray-950 bg-[url('/grid.svg')] rounded-xl">
+        {/* <div className="flex-col gap-4 md:p-4 justify-center items-center w-full md:w-xl  bg-gray-950 bg-[url('/grid.svg')] rounded-xl">
           <form className="space-x-6 flex" action={addTodo}>
             <input className="bg-gray-800 rounded-2xl p-2 flex-1" type="text" name="title" />
             <button className="bg-blue-800 text-gray-200 rounded-2xl p-2 hover:cursor-pointer w-20" type="submit">Add Todo</button>
@@ -72,7 +72,7 @@ export default async function Home() {
               {todos && todos.map((todo) => <li className="bg-zinc-800 p-2 animate-pulse border border-solid rounded-xl dark:border-white/[.145]" key={todo.id}>{todo.done ? 'Done' : 'Not Done'}</li>)}
             </ul>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex gap-4 items-center flex-col md:flex-row">
           <a
