@@ -8,7 +8,7 @@ import "@/app/globals.css";
 
 export default async function Home() {
   const user = await AuthGetCurrentUserServer();
-  // const { data: todos = [] } = await cookiesClient.models.Todo.list();
+  const { data: todos = [] } = await cookiesClient.models.Todo.list();
   
 
   async function addTodo(data: FormData) {
@@ -17,7 +17,8 @@ export default async function Home() {
     const result = await cookiesClient.models.Todo.create({
       content: title,
       status: "Todo",
-      priority: "medium",
+      isDone: false,
+      notes: ["medium"],
     });
     console.log("New Todo created:", result);
     revalidatePath("/");
@@ -49,7 +50,7 @@ export default async function Home() {
           <li>Save and see your changes instantly.</li>
           <li> OH really? </li>
         </ol>
-        {/* <div className="flex-col gap-4 md:p-4 justify-center items-center w-full md:w-xl  bg-gray-950 bg-[url('/grid.svg')] rounded-xl">
+        <div className="flex-col gap-4 md:p-4 justify-center items-center w-full md:w-xl  bg-gray-950 bg-[url('/grid.svg')] rounded-xl">
           <form className="space-x-6 flex" action={addTodo}>
             <input className="bg-gray-800 rounded-2xl p-2 flex-1" type="text" name="title" />
             <button className="bg-blue-800 text-gray-200 rounded-2xl p-2 hover:cursor-pointer w-20" type="submit">Add Todo</button>
@@ -63,16 +64,16 @@ export default async function Home() {
               <h3 className="font-bold text-center mb-1">Priority</h3>
               {todos && todos.map((todo) => <li className="bg-zinc-800 p-2 border border-solid rounded-xl dark:border-white/[.145]" key={todo.id}>
                 <h4 className="animate-pulse">
-                  {todo.priority}
+                  {todo.notes}
                 </h4>
               </li>)}
             </ul>
             <ul className="bg-zinc-900 p-4 space-y-2 rounded-xl">
               <h3 className="font-bold text-center mb-1">Status</h3>
-              {todos && todos.map((todo) => <li className="bg-zinc-800 p-2 animate-pulse border border-solid rounded-xl dark:border-white/[.145]" key={todo.id}>{todo.done ? 'Done' : 'Not Done'}</li>)}
+              {todos && todos.map((todo) => <li className="bg-zinc-800 p-2 animate-pulse border border-solid rounded-xl dark:border-white/[.145]" key={todo.id}>{todo.isDone ? 'Done' : 'Not Done'}</li>)}
             </ul>
           </div>
-        </div> */}
+        </div>
 
         <div className="flex gap-4 items-center flex-col md:flex-row">
           <a

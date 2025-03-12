@@ -27,10 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="[color-scheme:dark] dark">
+    <html lang="en" className="[color-scheme:dark] dark h-full">
       <body
         // className={`${geistSans.variable} ${geistMono.variable}  bg-gray-950 bg-[url('/grid.svg')] antialiased`}
-        className={`${geistSans.variable} ${geistMono.variable} bg-fixed bg-linear-to-t to-sky-800 from-rose-950 antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-fixed bg-linear-to-tr to-sky-900 from-rose-950 antialiased h-full`}
       >
         <ConfigureAmplifyClientSide />
         {/* <div className="relative pt-14 bg-linear-to-t from-slate-800 to-red-950 grid min-h-screen grid-cols-[1rem_1rem_auto_1rem_1rem] md:grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr]  [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"> */}
@@ -40,7 +40,7 @@ export default function RootLayout({
             <NavBar />
             {/* <div className="col-start-3 row-start-3 flex flex-col p-2 dark:bg-white/10"> */}
             {/* <div className="col-start-2 md:col-start-3 row-start-1 row-span-full flex flex-col p-2"> */}
-              <div className="text-sm/7 p-2 text-gray-300  dark:text-gray-300 pt-14">
+              <div className="text-sm/7 p-2 text-gray-300  dark:text-gray-300 pt-14 h-full">
                 {/* <svg className="h-[1lh] w-150.5 shrink-0" viewBox="0 0 22 22" fill="none" strokeLinecap="square">
                 <circle cx="11" cy="11" r="11" className="fill-sky-400/25" />
                 <circle cx="11" cy="11" r="10.5" className="stroke-sky-400/25" />

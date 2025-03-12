@@ -36,7 +36,7 @@ export default async function Page() {
     })
 
     return (
-        <div className="overflow-hidden overscroll-none fixed">
+        <div className="overflow-hidden overscroll-none touch-none">
             <h1 className="text-2xl font-bold">ACTIVITIES</h1>
             <div className="align-center h-full items-center justify-center flex flex-col gap-2">
                 <CardGrid activities={driftingCardProps}/>

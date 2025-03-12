@@ -8,20 +8,44 @@ and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
   Todo: a
-    .model({
-      content: a.string(),
-      priority: a.enum(['low', 'medium', 'high']),
-      status: a.enum(['Todo', 'InProgress', 'Completed']),
-    })
-    .authorization((allow) => [allow.guest(), allow.publicApiKey()]),
-    RobdaylogActivity: a
-    .model({
-      robdaylogId: a.id().required(),
-      activityId: a.id().required(),
+  .model({
+    content: a.string(),
+    isDone: a.boolean(),
+    status: a.enum(["Todo", "InProgress", "Completed"]),
+    notes: a.string().array(),
+  })
+  .authorization((allow) => [allow.publicApiKey()]),
+Category: a.customType({
+  category: a.enum(["Game", "Food", "Craft", "Music", "Movie", "Exercise", "Outdoor", "Indoor", "Other"])
+}),
 
-      robdaylog: a.belongsTo("Robdaylog", "robdaylogId"),
-      activity: a.belongsTo("Activity", "activityId"),
-    }).authorization((allow) => [allow.publicApiKey()]),
+PostTag: a.model({
+  // 1. Create reference fields to both ends of
+  //    the many-to-many relationship
+  postId: a.id().required(),
+  tagId: a.id().required(),
+  // 2. Create relationship fields to both ends of
+  //    the many-to-many relationship using their
+  //    respective reference fields
+  post: a.belongsTo('Post', 'postId'),
+  tag: a.belongsTo('Tag', 'tagId'),
+}).authorization((allow) => [allow.publicApiKey()]),
+
+Post: a.model({
+  title: a.string(),
+  content: a.string(),
+  // 3. Add relationship field to the join model
+  //    with the reference of `postId`
+  tags: a.hasMany('PostTag', 'postId'),
+}).authorization((allow) => [allow.publicApiKey()]),
+
+Tag: a.model({
+  name: a.string(),
+  // 4. Add relationship field to the join model
+  //    with the reference of `tagId`
+  posts: a.hasMany('PostTag', 'tagId'),
+}).authorization((allow) => [allow.publicApiKey()]),
+
   RobdaylogLocation: a
     .model({
       robdaylogId: a.id().required(),

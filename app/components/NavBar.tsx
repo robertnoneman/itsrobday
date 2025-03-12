@@ -33,7 +33,7 @@ export default function NavBar() {
 						</DisclosureButton>
 					</div>
 					<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-						<div className="flex shrink-0 items-center bg-stone-950/50 rounded-full p-1">
+						{/* <div className="flex shrink-0 items-center bg-stone-950/50 rounded-full p-1">
 							<Image
 								alt="ItsRobDay"
 								src="/RobdayIcon.png"
@@ -41,7 +41,7 @@ export default function NavBar() {
 								width={32}
 								height={32}
 							/>
-						</div>
+						</div> */}
 						<div className="hidden sm:ml-6 sm:block ">
 							<div className="flex space-x-4">
 								{navigation.map((item) => (

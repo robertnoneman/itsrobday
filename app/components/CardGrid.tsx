@@ -166,7 +166,7 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
           // "5%": { opacity: 1, z: "-9000px"},
           "100%": { opacity: 1, z: "1000px" },
         },
-        duration: 30,
+        duration: 60,
         ease: 'power2.out',
       });
       // Register this timeline with the parent component (if provided)
@@ -402,8 +402,9 @@ export const CardGrid: React.FC<{ activities: DriftingCardProps[] }> = ({ activi
         const deltaY = currentY - touchStartY;
         // Calculate new timeScale: a positive delta speeds up,
         // while a negative delta sets a negative timeScale to reverse.
-        const newTimeScale = gsap.utils.clamp(-3, 3, 1 + deltaY / touchSensitivity);
-        cardTimelinesRef.current.forEach((tl) => tl.timeScale(newTimeScale));
+        const newTimeScale = gsap.utils.clamp(-6, 6, 1 + deltaY / touchSensitivity);
+        
+        cardTimelinesRef.current.forEach((tl) =>  tl.timeScale(newTimeScale));
         
         if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
       }
