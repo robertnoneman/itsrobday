@@ -23,7 +23,7 @@ export const NavBarItem = ({
 			href={href}
 			className={classNames(
 				isActive ? 'bg-rose-600/40 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-				'rounded-md px-3 py-2 text-sm font-medium',
+				'rounded-md rounded-l-3xl rounded-r-3xl px-3 py-2 text-sm font-medium',
 			)}
 			onClick={(event) => {
 				// event.preventDefault();
