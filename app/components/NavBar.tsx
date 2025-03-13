@@ -31,7 +31,7 @@ export default function NavBar() {
 
 	return (
 		<div>
-			<div className="backdrop-blur top-[10px] hidden sm:block fixed w-full z-10 row-start-1">
+			<div className="top-[20px] hidden sm:block fixed w-full z-10 row-start-1">
 				<Disclosure as="nav" >
 					<div className="bg-transparent mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 						<div className="relative flex h-14 items-center justify-between">
@@ -54,7 +54,7 @@ export default function NavBar() {
 								height={32}
 							/>
 						</div> */}
-								<div className="sm:ml-6 sm:block border rounded-3xl p-2 px-4 bg-slate-950/10 pb-4 sm:pb-2">
+								<div className="backdrop-blur sm:ml-6 sm:block border rounded-3xl p-2 px-4 bg-slate-950/10 pb-4 sm:pb-2">
 									<div className="flex space-x-5 sm:space-x-4">
 										{navigation.map((item) => (
 											<NavBarItem
@@ -140,7 +140,7 @@ export default function NavBar() {
 					</DisclosurePanel>
 				</Disclosure>
 			</div>
-			<div className="backdrop-blur bottom-[10px] sm:hidden fixed w-full z-10 row-start-1">
+			<div className="bottom-[10px] sm:hidden fixed w-full z-10 row-start-1">
 				<Disclosure as="nav" >
 					<div className="bg-transparent mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 						<div className="relative flex h-14 items-center justify-between">
@@ -163,7 +163,7 @@ export default function NavBar() {
 								height={32}
 							/>
 						</div> */}
-								<div className="sm:ml-6 sm:block border rounded-3xl p-2 px-4 bg-slate-950/10 pb-4 sm:pb-2">
+								<div className="backdrop-blur sm:ml-6 sm:block border rounded-3xl p-2 px-4 bg-slate-950/10 pb-4 sm:pb-2">
 									<div className="flex space-x-5 sm:space-x-4">
 										{navigation.map((item) => (
 											<NavBarItem
