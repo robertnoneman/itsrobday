@@ -1,5 +1,3 @@
-'use client';
-
 import Image from "next/image";
 import { AuthGetCurrentUserServer, cookiesClient } from "@/utils/amplify-utils";
 import { revalidatePath } from "next/cache";
