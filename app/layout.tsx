@@ -40,7 +40,7 @@ export default function RootLayout({
             <NavBar />
             {/* <div className="col-start-3 row-start-3 flex flex-col p-2 dark:bg-white/10"> */}
             {/* <div className="col-start-2 md:col-start-3 row-start-1 row-span-full flex flex-col p-2"> */}
-              <div className="text-sm/7 p-2 text-gray-300  dark:text-gray-300 pt-14 h-full">
+              <div className="text-sm/7 p-2 text-gray-300  dark:text-gray-300 pt-18 h-full">
                 {/* <svg className="h-[1lh] w-150.5 shrink-0" viewBox="0 0 22 22" fill="none" strokeLinecap="square">
                 <circle cx="11" cy="11" r="11" className="fill-sky-400/25" />
                 <circle cx="11" cy="11" r="10.5" className="stroke-sky-400/25" />

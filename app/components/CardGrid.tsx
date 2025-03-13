@@ -137,7 +137,7 @@ const DriftingCard: React.FC<DriftingCardProps> = ({ title, description, imageUr
 
     // Create a timeline for the drifting effect.
     // Each card starts with a random delay so they don't all animate in sync.
-    const tl = gsap.timeline({ repeat: -1, delay: (index ?? 0) * 3.333 });
+    const tl = gsap.timeline({ repeat: -1, delay: (index ?? 0) * 2.333 });
 
     // tl.to(el, {
     //   opacity: 1,

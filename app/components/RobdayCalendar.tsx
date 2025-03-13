@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Calendar } from "@/components/ui/calendar"
+import { Separator } from "@/components/ui/separator"
 import { AnimatePresence, motion } from "framer-motion";
 import { client } from "@/utils/amplify-client-utils";
 import type { Schema } from "@/amplify/data/resource";
+import gsap from 'gsap';
 
 
 export default function RobdayCalendar() {
@@ -16,6 +18,7 @@ export default function RobdayCalendar() {
   const [selectedRobdayLog, setSelectedRobdayLog] = useState<Schema["Robdaylog"]["type"] | null>(null);
   const [selectedRobdayActivities, setSelectedRobdayActivities] = useState<Array<Schema["Activity"]["type"]>>([]);
   const [selectedActivityInstances, setSelectedActivityInstances] = useState<Array<Schema["ActivityInstance"]["type"]>>([]);
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   const fetchRobdayLogs = () => {
     client.models.Robdaylog.observeQuery().subscribe({
@@ -29,7 +32,7 @@ export default function RobdayCalendar() {
             const activities = (await filteredRobdayLogs[0].activities()).data as Schema["Activity"]["type"][];
             setSelectedRobdayActivities(activities);
             console.log(activities);
-            
+
 
             const activityInstances = (await filteredRobdayLogs[0].activityInstances()).data as Schema["ActivityInstance"]["type"][];
             setSelectedActivityInstances(activityInstances.flat() as Schema["ActivityInstance"]["type"][]);
@@ -37,13 +40,34 @@ export default function RobdayCalendar() {
           }
           console.log(filteredRobdayLogs);
           setRobdayLogs([...response.items]);
-        } 
+        }
       },
       error: (error) => {
         console.error(error);
       },
     });
   };
+
+  const updateSelectedRobdayLog = async (newDate: { toISOString: () => string; } | undefined) => {
+    if (newDate) {
+      const filteredRobdayLogs = robdayLogs.filter((log) => {
+        return log.date === newDate.toISOString().split('T')[0];
+      });
+      setSelectedRobdayLog(filteredRobdayLogs[0] || null);
+      if (filteredRobdayLogs[0]) {
+        const activities = (await filteredRobdayLogs[0].activities()).data as Schema["Activity"]["type"][];
+        setSelectedRobdayActivities(activities);
+        console.log(activities);
+        const activityInstances = (await filteredRobdayLogs[0].activityInstances()).data as Schema["ActivityInstance"]["type"][];
+        setSelectedActivityInstances(activityInstances.flat() as Schema["ActivityInstance"]["type"][]);
+        console.log(activityInstances);
+        setAgendaTitle(`Robday ${filteredRobdayLogs[0].robDayNumber}`);
+      }
+      else {
+        setAgendaTitle("");
+      }
+    }
+  }
 
   function formatMondayAsRobday(date: Date) {
     return date.getDay() === 1 ? "Rob" : date.toLocaleDateString("en-US", { weekday: "short" });
@@ -72,10 +96,17 @@ export default function RobdayCalendar() {
   }
 
   // Handle day selection
-  const handleDateSelect = (selectedDate: Date | undefined) => {
+  const handleDateSelect = async (selectedDate: Date | undefined) => {
     if (selectedDate) {
       setDate(selectedDate);
       setShowAgendaForm(true);
+      await updateSelectedRobdayLog(selectedDate);
+      // Animate the calendar up when date is selected
+      gsap.to(calendarRef.current, {
+        y: -180,
+        duration: 0.1,
+        ease: "power1.out"
+      });
     }
   };
 
@@ -92,13 +123,34 @@ export default function RobdayCalendar() {
     setAgendaTitle("");
     setAgendaDescription("");
     setShowAgendaForm(false);
+    // Animate the calendar back to original position
+    gsap.to(calendarRef.current, {
+      y: 0,
+      duration: 0.1,
+      ease: "power1.out"
+    });
+  };
+
+  // Also animate back when form is canceled
+  const handleCancelForm = () => {
+    setShowAgendaForm(false);
+    setAgendaTitle("");
+    setAgendaDescription("");
+
+    // Animate the calendar back to original position
+    gsap.to(calendarRef.current, {
+      y: 0,
+      duration: 0.1,
+      ease: "power1.out"
+    });
   };
 
 
   useEffect(() => {
+
     fetchRobdayLogs();
     console.log(date);
-  }, [date]);
+  }, []);
 
   return (
     <div>
@@ -108,7 +160,11 @@ export default function RobdayCalendar() {
         exit={{ y: 100, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <div className="bg-linear-to-t from-stone-900 to-stone-950 rounded-md shadow transition-all duration-200 ease-in-out">
+        <div
+          id="Calendar"
+          className="bg-linear-to-t from-stone-900 to-stone-950 rounded-md shadow transition-all duration-200 ease-in-out"
+          ref={calendarRef}
+        >
           <Calendar
             mode="single"
             selected={date}
@@ -139,10 +195,10 @@ export default function RobdayCalendar() {
           >
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-stone-200">
-                Create Robday Agenda for {date.toLocaleDateString()}
+                {agendaTitle === "" ? `Create Robday Agenda for ${date.toLocaleDateString()}` : agendaTitle}
               </h3>
               <button
-                onClick={() => setShowAgendaForm(false)}
+                onClick={handleCancelForm}
                 className="text-slate-400 hover:text-white"
               >
                 ✕
@@ -150,39 +206,68 @@ export default function RobdayCalendar() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-3">
-              <div>
-                <label htmlFor="title" className="block text-sm text-slate-300 mb-1">
-                  Title
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  value={agendaTitle}
-                  onChange={(e) => setAgendaTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-800 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
-                  placeholder="Meeting title..."
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="description" className="block text-sm text-slate-300 mb-1">
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  value={agendaDescription}
-                  onChange={(e) => setAgendaDescription(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-800 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
-                  placeholder="Add details..."
-                  rows={3}
-                />
-              </div>
+              {agendaTitle === "" && (
+                <div>
+                  <label htmlFor="title" className="block text-sm text-slate-300 mb-1">
+                    Title
+                  </label>
+                  <input
+                    id="title"
+                    type="text"
+                    value={agendaTitle}
+                    onChange={(e) => setAgendaTitle(e.target.value)}
+                    className="w-full px-3 py-2 bg-stone-800 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    placeholder="Meeting title..."
+                    required
+                  />
+                </div>
+              )}
+              {agendaTitle === "" ? (
+                <div>
+                  <label htmlFor="description" className="block text-sm text-slate-300 mb-1">
+                    Description
+                  </label>
+                  <textarea
+                    id="description"
+                    value={agendaDescription}
+                    onChange={(e) => setAgendaDescription(e.target.value)}
+                    className="w-full px-3 py-2 bg-stone-800 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    placeholder="Add details..."
+                    rows={3}
+                  />
+                </div>
+              ) : (
+                <div className="flex flex-col justify-between items-start space-y-2">
+                  <ul>
+                  {selectedActivityInstances.map((activityInstance) => (
+                    <li key={activityInstance.id} className="flex flex-col space-x-2">
+                      <div className="flex flex-col space-x-2">
+                        <h3 className="text-md text-stone-100 text-left">
+                          {activityInstance.displayName?.toUpperCase()}
+                        </h3>
+                        <Separator style={{backgroundColor: "#7d7d7d"}}/>
+                      </div>
+                    </li>
+                  ))}
+                  </ul>
+                  {date >= new Date() && (
+                    <button
+                      type="button"
+                      onClick={() => console.log('Button clicked')}
+                      className="h-8 mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-colors justify-center align-middle"
+                      >
+                      <p className="text-sm align-middle self-center text-center">
+                      Add Activity
+                      </p>
+                    </button>
+                  )}
+                </div>
+              )}
 
               <div className="flex justify-end space-x-2 pt-2">
                 <button
                   type="button"
-                  onClick={() => setShowAgendaForm(false)}
+                  onClick={handleCancelForm}
                   className="px-4 py-2 bg-slate-700 text-white rounded-md hover:bg-slate-600 transition-colors"
                 >
                   Cancel
