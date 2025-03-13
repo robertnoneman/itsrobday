@@ -3,10 +3,8 @@
 import Pride from "react-canvas-confetti/dist/presets/pride";
 import confetti from "canvas-confetti"
 import randomInRange from "react-canvas-confetti/dist/helpers/randomInRange";
-import React, { useEffect, useRef } from 'react';
 
 export default function RobdayConfetti() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const isRobday = new Date().getDay() === 1;
   const sadFace = confetti.shapeFromText("😢");
   const decorateOptions = {
@@ -29,21 +27,7 @@ export default function RobdayConfetti() {
       particleCount: randomInRange(1, 2),
       shapes: [sadFace]
     };
-    useEffect(() => {
-      if (typeof window !== 'undefined') {
-        // Proceed with OffscreenCanvas and canvas operations
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        if (canvas) {
-          const offscreenCanvas = new OffscreenCanvas(canvas.width, canvas.height);
-          const ctx = offscreenCanvas.getContext('2d');
-          if (!ctx) return;
-        }
-        
-        // Confetti drawing logic using ctx
-      }
-    }, []);
-
+    
   return (
     <div>
       {isRobday ? (
