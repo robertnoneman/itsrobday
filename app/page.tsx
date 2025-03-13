@@ -7,7 +7,6 @@ import Pride from "react-canvas-confetti/dist/presets/pride";
 import confetti from "canvas-confetti"
 import randomInRange from "react-canvas-confetti/dist/helpers/randomInRange";
 import RobdayConfetti from "./components/RobdayConfetti.";
-// import "@/styles/globals.css";
 
 
 export default async function Home() {
