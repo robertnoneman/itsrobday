@@ -23,6 +23,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Homemade_Apple, Splash, Cabin_Sketch } from "next/font/google";
 import CrickettScoreboard from './DartScoreboards/CricketScoreboard';
+import BaseballScoreboard from './DartScoreboards/BaseballScoreboard';
 
 
 const appleFont = Homemade_Apple({ weight: "400", subsets: ["latin"], });
@@ -96,7 +97,8 @@ export default function DartScoreboard() {
             <div className="col-span-5">
               <Separator className="my-2" />
             </div>
-          <CrickettScoreboard />
+          {(gameType === "Cricket") && <CrickettScoreboard />}
+          {(gameType === "Baseball") && <BaseballScoreboard />}
 
           </div>
         </CardContent>
