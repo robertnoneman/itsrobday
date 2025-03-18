@@ -25,6 +25,7 @@ import { Homemade_Apple, Splash, Cabin_Sketch } from "next/font/google";
 import CrickettScoreboard from './DartScoreboards/CricketScoreboard';
 import BaseballScoreboard from './DartScoreboards/BaseballScoreboard';
 import FiveOhOne from './DartScoreboards/FiveOhOne';
+import RobdayNightFootballScoreboard from './DartScoreboards/RobdayNightFootball';
 
 
 const appleFont = Homemade_Apple({ weight: "400", subsets: ["latin"], });
@@ -101,6 +102,7 @@ export default function DartScoreboard() {
           {(gameType === "Cricket") && <CrickettScoreboard />}
           {(gameType === "Baseball") && <BaseballScoreboard />}
           {(gameType === "301" || gameType === "501" || gameType === "701") && <FiveOhOne startingScore={Number(gameType)} />}
+          {(gameType === "Robday Night Football") && <RobdayNightFootballScoreboard />}
 
           </div>
         </CardContent>
